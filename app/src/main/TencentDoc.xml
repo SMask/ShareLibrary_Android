@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.tencent.docs"
+    platformBuildVersionCode="29" platformBuildVersionName="10" android:compileSdkVersion="29"
+    android:compileSdkVersionCodename="10" android:versionCode="253" android:versionName="2.2.3">
+
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
+
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <permission android:name="com.tencent.docs.permission.XGPUSH_RECEIVE"
+        android:protectionLevel="0x2" />
+
+    <uses-permission android:name="com.tencent.docs.permission.XGPUSH_RECEIVE" />
+
+    <permission android:name="com.tencent.docs.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="0x2" />
+
+    <uses-permission android:name="com.tencent.docs.permission.MIPUSH_RECEIVE" />
+
+    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />
+
+    <permission android:name="com.tencent.docs.push.permission.MESSAGE"
+        android:protectionLevel="0x2" />
+
+    <uses-permission android:name="com.tencent.docs.push.permission.MESSAGE" />
+
+    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
+
+    <permission android:name="com.tencent.docs.permission.C2D_MESSAGE"
+        android:protectionLevel="0x2" />
+
+    <uses-permission android:name="com.tencent.docs.permission.C2D_MESSAGE" />
+
+    <uses-permission android:name="com.coloros.mcs.permission.RECIEVE_MCS_MESSAGE" />
+
+    <uses-permission android:name="com.heytap.mcs.permission.RECIEVE_MCS_MESSAGE" />
+
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+
+    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
+
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+
+    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" />
+
+    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" />
+
+    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" />
+
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+
+    <uses-permission android:name="android.permission.READ_APP_BADGE" />
+
+    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS" />
+
+    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS" />
+
+    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ" />
+
+    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" />
+
+    <application android:name="com.tencent.docs.DocsApplication"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:icon="@ref/0x7f090001" android:label="@ref/0x7f0a0000"
+        android:usesCleartextTraffic="true">
+
+        <activity android:name="com.tencent.docs.DocsFlutterActivity"
+            android:configChanges="0x40003fb4" android:hardwareAccelerated="true"
+            android:launchMode="1" android:screenOrientation="1" android:theme="@ref/0x7f0b0004"
+            android:windowSoftInputMode="0x10">
+
+            <meta-data android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@ref/0x7f0b0004" />
+
+            <meta-data android:name="io.flutter.embedding.android.SplashScreenDrawable"
+                android:resource="@ref/0x7f050088" />
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+
+                <action android:name="com.tencent.docs.view_doc" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <meta-data android:name="flutterEmbedding" android:value="2" />
+
+        <activity android:name="com.tencent.docs.wxapi.WXEntryActivity" android:exported="true"
+            android:launchMode="2" android:taskAffinity="com.tencent.docs"
+            android:theme="@ref/0x01030010" />
+
+        <activity android:name="oicq.wlogin_sdk.quicklogin.QuickLoginWebViewActivity"
+            android:theme="@ref/0x0103000a" />
+
+        <activity android:name="com.tencent.docs.activity.file_picker.FilePickerActivity"
+            android:exported="false" android:hardwareAccelerated="true" />
+
+        <provider android:name="com.tencent.android.tpush.XGPushProvider"
+            android:authorities="com.tencent.docs.XGVIP_PUSH_AUTH" android:exported="false" />
+
+        <activity android:name="com.tencent.docs.push.NotificationActivity"
+            android:configChanges="0xa4" android:launchMode="2" android:screenOrientation="3"
+            android:theme="@ref/0x0103000f">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:host="com.xg.push" android:path="/notify_detail"
+                    android:scheme="xgscheme" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.tencent.docs.push.TPNSReceiver">
+
+            <intent-filter>
+
+                <action android:name="com.tencent.android.xg.vip.action.PUSH_MESSAGE" />
+
+                <action android:name="com.tencent.android.xg.vip.action.FEEDBACK" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.tencent.docs.scheme.SchemeHandleActivity"
+            android:configChanges="0xa4" android:launchMode="2" android:screenOrientation="3"
+            android:theme="@ref/0x0103000f">
+
+            <intent-filter android:label="腾讯文档">
+
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="application/msword" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+
+                <data android:mimeType="application/vnd.ms-excel" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+
+                <data android:mimeType="application/vnd.ms-powerpoint" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+
+                <data android:mimeType="application/pdf" />
+
+                <data android:mimeType="text/plain" />
+
+                <data android:mimeType="text/csv" />
+            </intent-filter>
+
+            <intent-filter android:label="@ref/0x7f0a000d">
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="file" />
+
+                <data android:mimeType="application/msword" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+
+                <data android:mimeType="application/vnd.ms-excel" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+
+                <data android:mimeType="application/vnd.ms-powerpoint" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+
+                <data android:mimeType="application/pdf" />
+
+                <data android:mimeType="text/plain" />
+
+                <data android:mimeType="text/csv" />
+            </intent-filter>
+
+            <intent-filter android:label="@ref/0x7f0a000d">
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="content" />
+
+                <data android:mimeType="application/msword" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+
+                <data android:mimeType="application/vnd.ms-excel" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+
+                <data android:mimeType="application/vnd.ms-powerpoint" />
+
+                <data
+                    android:mimeType="application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+
+                <data android:mimeType="application/pdf" />
+
+                <data android:mimeType="text/plain" />
+
+                <data android:mimeType="text/csv" />
+            </intent-filter>
+
+            <intent-filter android:label="腾讯文档">
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:host="tencent" android:scheme="doc" />
+            </intent-filter>
+        </activity>
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+        <activity android:name="com.tencent.tauth.AuthActivity" android:launchMode="2"
+            android:noHistory="true">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent101458937" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="0xa0" android:screenOrientation="3"
+            android:theme="@ref/0x01030010" />
+
+        <provider android:name="androidx.core.content.FileProvider"
+            android:authorities="com.tencent.docs.LogFileProvider" android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@ref/0x7f0d0000" />
+        </provider>
+
+        <service android:name="com.example.r_upgrade.common.UpgradeService" />
+
+        <provider android:name="com.example.r_upgrade.RUpgradeFileProvider"
+            android:authorities="com.tencent.docs.fileProvider" android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@ref/0x7f0d0001" />
+        </provider>
+
+        <activity android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+            android:exported="false" android:theme="@ref/0x01030007" />
+
+        <provider android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="com.tencent.docs.workmanager-init" android:directBootAware="false"
+            android:exported="false" android:multiprocess="true" />
+
+        <service android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+            android:directBootAware="false" android:enabled="@ref/0x7f020000"
+            android:exported="false" />
+
+        <service android:name="androidx.work.impl.background.systemjob.SystemJobService"
+            android:directBootAware="false" android:enabled="@ref/0x7f020002"
+            android:exported="true" android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:directBootAware="false" android:enabled="@ref/0x7f020001"
+            android:exported="false" />
+
+        <receiver android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+            android:directBootAware="false" android:enabled="true" android:exported="false" />
+
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+            android:directBootAware="false" android:enabled="false" android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+            android:directBootAware="false" android:enabled="false" android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+
+                <action android:name="android.intent.action.BATTERY_LOW" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+            android:directBootAware="false" android:enabled="false" android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+
+                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+            android:directBootAware="false" android:enabled="false" android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+            android:directBootAware="false" android:enabled="false" android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <action android:name="android.intent.action.TIME_SET" />
+
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+            android:directBootAware="false" android:enabled="@ref/0x7f020000"
+            android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.tencent.android.tpush.XGPushActivity" android:exported="false"
+            android:theme="@ref/0x0103000f">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.tencent.android.tpush.XGPushReceiver" android:exported="false"
+            android:process=":xg_vip_service">
+
+            <intent-filter android:priority="0x7fffffff">
+
+                <action android:name="com.tencent.android.xg.vip.action.SDK" />
+
+                <action android:name="com.tencent.android.xg.vip.action.INTERNAL_PUSH_MESSAGE" />
+
+                <action android:name="com.tencent.android.xg.vip.action.ACTION_SDK_KEEPALIVE" />
+
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+                <action android:name="android.intent.action.USER_PRESENT" />
+
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
+
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.tencent.android.tpush.service.XGVipPushService"
+            android:exported="false" android:persistent="true" android:process=":xg_vip_service" />
+
+        <service android:name="com.tencent.android.tpush.rpc.XGRemoteService"
+            android:exported="false">
+
+            <intent-filter>
+
+                <action android:name="com.tencent.docs.XGVIP_PUSH_ACTION" />
+            </intent-filter>
+        </service>
+
+        <provider android:name="com.tencent.android.tpush.SettingsContentProvider"
+            android:authorities="com.tencent.docs.TPUSH_PROVIDER" android:exported="false" />
+
+        <provider android:name="com.tencent.android.tpush.XGVipPushKAProvider"
+            android:authorities="com.tencent.docs.AUTH_XGPUSH_KEEPALIVE" android:exported="true" />
+
+        <service android:name="com.tencent.bigdata.mqttchannel.services.MqttService"
+            android:exported="false" android:process=":xg_vip_service" />
+
+        <provider android:name="com.tencent.bigdata.baseapi.base.SettingsContentProvider"
+            android:authorities="com.tencent.docs.XG_SETTINGS_PROVIDER" android:exported="false" />
+
+        <meta-data android:name="XG_V2_ACCESS_ID" android:value="1500004361" />
+
+        <meta-data android:name="XG_V2_ACCESS_KEY" android:value="A9OM9ZK32MYK" />
+
+        <meta-data android:name="com.huawei.hms.client.appid" android:value="100255201" />
+
+        <activity android:name="com.huawei.hms.activity.BridgeActivity"
+            android:configChanges="0x40002484" android:excludeFromRecents="true"
+            android:exported="false" android:hardwareAccelerated="true"
+            android:theme="@ref/0x0103000f">
+
+            <meta-data android:name="hwc-theme"
+                android:value="androidhwext:style/Theme.Emui.Translucent" />
+        </activity>
+
+        <provider android:name="com.huawei.hms.update.provider.UpdateProvider"
+            android:authorities="com.tencent.docs.hms.update.provider" android:exported="false"
+            android:grantUriPermissions="true" />
+
+        <receiver android:name="com.tencent.android.hwpush.HWPushMessageReceiver">
+
+            <intent-filter>
+
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
+
+                <action android:name="com.huawei.android.push.intent.RECEIVE" />
+
+                <action android:name="com.huawei.android.push.intent.CLICK" />
+
+                <action android:name="com.huawei.intent.action.PUSH_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.huawei.hms.support.api.push.PushEventReceiver">
+
+            <intent-filter>
+
+                <action android:name="com.huawei.intent.action.PUSH" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.xiaomi.push.service.XMPushService" android:enabled="true"
+            android:process=":pushservice" />
+
+        <service android:name="com.xiaomi.push.service.XMJobService" android:enabled="true"
+            android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":pushservice" />
+
+        <service android:name="com.xiaomi.mipush.sdk.PushMessageHandler" android:enabled="true"
+            android:exported="true" />
+
+        <service android:name="com.xiaomi.mipush.sdk.MessageHandleService" android:enabled="true" />
+
+        <receiver android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+            android:exported="true">
+
+            <intent-filter>
+
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.xiaomi.push.service.receivers.PingReceiver"
+            android:exported="false" android:process=":pushservice">
+
+            <intent-filter>
+
+                <action android:name="com.xiaomi.push.PING_TIMER" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.tencent.android.mipush.XMPushMessageReceiver"
+            android:exported="true">
+
+            <intent-filter>
+
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+
+            <intent-filter>
+
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+
+            <intent-filter>
+
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.meizu.cloud.pushsdk.NotificationService"
+            android:exported="true" />
+
+        <receiver android:name="com.meizu.cloud.pushsdk.SystemReceiver">
+
+            <intent-filter>
+
+                <action android:name="com.meizu.cloud.pushservice.action.PUSH_SERVICE_START" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.tencent.android.mzpush.MZPushMessageReceiver">
+
+            <intent-filter>
+
+                <action android:name="com.meizu.flyme.push.intent.MESSAGE" />
+
+                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK" />
+
+                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK" />
+
+                <action android:name="com.meizu.c2dm.intent.REGISTRATION" />
+
+                <action android:name="com.meizu.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.tencent.docs" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.vivo.push.sdk.service.CommandClientService"
+            android:exported="true" />
+
+        <activity android:name="com.vivo.push.sdk.LinkProxyClientActivity" android:exported="false"
+            android:screenOrientation="1" android:theme="@ref/0x01030010" />
+
+        <receiver android:name="com.tencent.android.vivopush.VivoPushMessageReceiver">
+
+            <intent-filter>
+
+                <action android:name="com.vivo.pushclient.action.RECEIVE" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data android:name="com.vivo.push.api_key"
+            android:value="9fce192a-ffc7-4198-b8f4-245ffd7cb7a3" />
+
+        <meta-data android:name="com.vivo.push.app_id" android:value="11387" />
+
+        <service android:name="com.heytap.mcssdk.PushService"
+            android:permission="com.coloros.mcs.permission.SEND_MCS_MESSAGE">
+
+            <intent-filter>
+
+                <action android:name="com.coloros.mcs.action.RECEIVE_MCS_MESSAGE" />
+            </intent-filter>
+        </service>
+
+        <service android:name="com.heytap.mcssdk.AppPushService"
+            android:permission="com.heytap.mcs.permission.SEND_MCS_MESSAGE">
+
+            <intent-filter>
+
+                <action android:name="com.heytap.mcs.action.RECEIVE_MCS_MESSAGE" />
+            </intent-filter>
+        </service>
+
+        <service android:name="androidx.room.MultiInstanceInvalidationService"
+            android:exported="false" />
+    </application>
+</manifest>
