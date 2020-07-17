@@ -18,6 +18,7 @@ public class IntentHandleActivity extends AppCompatActivity {
         LogUtil.i("Intent Action: " + action);
         LogUtil.i("Intent Type: " + intent.getType());
         LogUtil.i("Intent Data: " + intent.getData());
+        LogUtil.i("Intent ClipData: " + intent.getClipData());
         if (extras != null) {
             if (Intent.ACTION_SEND_MULTIPLE.equals(action)) {
                 LogUtil.i("Intent EXTRA_STREAM Multiple: " + extras.getParcelableArrayList(Intent.EXTRA_STREAM));
