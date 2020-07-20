@@ -228,6 +228,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * 分享多个文件
+     */
+    private void shareMultiple() {
+        File dirFileTemp;
+        String[] pathArr = new String[]{
+                "Screenshot_2020-01-03-16-54-05-360_com.mask.chartlibrary.jpg",
+                "Screenshot_2020-01-03-16-55-03-336_com.mask.chartlibrary.jpg",
+                "Screenshot_2020-02-18-16-08-37-324_com.raykite.mobile.jpg",
+                "Screenshot_2020-02-18-16-09-30-530_com.raykite.mobile.jpg",
+                "Screenshot_2020-02-18-16-10-07-667_com.raykite.mobile.jpg",
+        };
+        // 应用外图片测试
+//        dirFileTemp = new File("/storage/emulated/0/DCIM/Screenshots/");
+        // 应用内图片测试
+        dirFileTemp = dirFile;
+        pathArr[0] = "20200720190708.png";
+
+        ArrayList<Uri> uriList = new ArrayList<>();
+        for (String path : pathArr) {
+            File file = new File(dirFileTemp, path);
+            final Uri fileUri = FileUtils.getFileUri(activity, file);
+            final Uri contentUri = FileUtils.getContentUri(activity, file);
+
+            LogUtil.i("Multiple Path: " + file.getAbsolutePath());
+            LogUtil.i("Multiple Exists: " + file.exists());
+            LogUtil.i("Multiple FileUri: " + fileUri);
+            LogUtil.i("Multiple ContentUri: " + contentUri);
+
+            Uri uri;
+            if (contentUri == null) {
+                final Uri copyUri = FileUtils.copyFileToExternal(activity, dirName, file);
+                LogUtil.i("Multiple CopyUri: " + copyUri);
+
+                uri = copyUri == null ? fileUri : copyUri;
+            } else {
+                uri = contentUri;
+            }
+            uriList.add(uri);
+        }
+
+        shareMultiple(uriList, "image/*");
+    }
+
+    /**
      * 分享单个文件
      *
      * @param uri      uri
@@ -254,50 +298,15 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 分享多个文件
+     *
+     * @param uriList  uriList
+     * @param mimeType mimeType
      */
-    private void shareMultiple() {
-        File dirFileTemp;
-        String[] pathArr = new String[]{
-                "Screenshot_2020-01-03-16-54-05-360_com.mask.chartlibrary.jpg",
-                "Screenshot_2020-01-03-16-55-03-336_com.mask.chartlibrary.jpg",
-                "Screenshot_2020-02-18-16-08-37-324_com.raykite.mobile.jpg",
-                "Screenshot_2020-02-18-16-09-30-530_com.raykite.mobile.jpg",
-                "Screenshot_2020-02-18-16-10-07-667_com.raykite.mobile.jpg",
-        };
-        // 应用外图片测试
-//        dirFileTemp = new File("/storage/emulated/0/DCIM/Screenshots/");
-        // 应用内图片测试
-        dirFileTemp = dirFile;
-        pathArr[0] = "20200720190708.png";
-
-        // 多文件分享
+    private void shareMultiple(ArrayList<Uri> uriList, String mimeType) {
         // FileProvider Uri模式：
         // QQ偶尔会失败，QQ收藏必然失败，微信必然失败，微信收藏必然失败，WPS成功
         // MediaStore Uri模式都正常
         // 猜测因为部分App没有适配FileProvider Uri
-
-        ArrayList<Uri> uriList = new ArrayList<>();
-        for (String path : pathArr) {
-            File file = new File(dirFileTemp, path);
-            final Uri fileUri = FileUtils.getFileUri(activity, file);
-            final Uri contentUri = FileUtils.getContentUri(activity, file);
-
-            LogUtil.i("Multiple Path: " + file.getAbsolutePath());
-            LogUtil.i("Multiple Exists: " + file.exists());
-            LogUtil.i("Multiple FileUri: " + fileUri);
-            LogUtil.i("Multiple ContentUri: " + contentUri);
-
-            Uri uri;
-            if (contentUri == null) {
-                final Uri copyUri = FileUtils.copyFileToExternal(activity, dirName, file);
-                LogUtil.i("Multiple CopyUri: " + copyUri);
-
-                uri = copyUri == null ? fileUri : copyUri;
-            } else {
-                uri = contentUri;
-            }
-            uriList.add(uri);
-        }
 
         Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -306,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
 //        intent.setPackage("com.tencent.docs");// 指定打开APP的包名
 //        intent.setPackage("cn.wps.moffice_eng");// 指定打开APP的包名
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList);  // 传输文件，采用流的方式
-        intent.setType("image/*");
+        intent.setType(mimeType);
         startActivity(Intent.createChooser(intent, "分享多个文件"));
     }
 
