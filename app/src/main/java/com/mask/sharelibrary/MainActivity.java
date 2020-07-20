@@ -28,6 +28,7 @@ import java.util.ArrayList;
  * 使用存储访问框架打开文件: https://developer.android.com/guide/topics/providers/document-provider
  * 分享简单的数据: https://developer.android.com/training/sharing
  * 分享文件: https://developer.android.com/training/secure-file-sharing
+ * 共享存储空间概览: https://developer.android.com/training/data-storage/shared
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private View btn_share_multiple;
 
     private File dirFile;
+    private String dirName = "Mask";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        Uri uri;
+
         final Uri fileUri = FileUtils.getFileUri(activity, file);
         final Uri contentUri = FileUtils.getContentUri(activity, file);
         final String mimeType = FileUtils.getMimeType(file.getName());
@@ -208,7 +212,19 @@ public class MainActivity extends AppCompatActivity {
         LogUtil.i("File ContentName: " + FileUtils.getName(activity, contentUri));
         LogUtil.i("File ContentMimeType: " + FileUtils.getMimeType(activity, contentUri));
 
-        shareSingle(contentUri == null ? fileUri : contentUri, mimeType);
+        if (contentUri == null) {
+            final Uri copyUri = FileUtils.copyFileToExternal(activity, dirName, file);
+            LogUtil.i("File CopyUri: " + copyUri);
+            LogUtil.i("File CopyPath: " + FileUtils.getPath(activity, copyUri));
+            LogUtil.i("File CopyName: " + FileUtils.getName(activity, copyUri));
+            LogUtil.i("File CopyMimeType: " + FileUtils.getMimeType(activity, copyUri));
+
+            uri = copyUri == null ? fileUri : copyUri;
+        } else {
+            uri = contentUri;
+        }
+
+        shareSingle(uri, mimeType);
     }
 
     /**
@@ -252,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
 //        dirFileTemp = new File("/storage/emulated/0/DCIM/Screenshots/");
         // 应用内图片测试
         dirFileTemp = dirFile;
+        pathArr[0] = "20200720190708.png";
 
         // 多文件分享
         // FileProvider Uri模式：
@@ -264,13 +281,22 @@ public class MainActivity extends AppCompatActivity {
             File file = new File(dirFileTemp, path);
             final Uri fileUri = FileUtils.getFileUri(activity, file);
             final Uri contentUri = FileUtils.getContentUri(activity, file);
-            final Uri uri = contentUri == null ? fileUri : contentUri;
-            uriList.add(uri);
 
             LogUtil.i("Multiple Path: " + file.getAbsolutePath());
             LogUtil.i("Multiple Exists: " + file.exists());
             LogUtil.i("Multiple FileUri: " + fileUri);
             LogUtil.i("Multiple ContentUri: " + contentUri);
+
+            Uri uri;
+            if (contentUri == null) {
+                final Uri copyUri = FileUtils.copyFileToExternal(activity, dirName, file);
+                LogUtil.i("Multiple CopyUri: " + copyUri);
+
+                uri = copyUri == null ? fileUri : copyUri;
+            } else {
+                uri = contentUri;
+            }
+            uriList.add(uri);
         }
 
         Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);

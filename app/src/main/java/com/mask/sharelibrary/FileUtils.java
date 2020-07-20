@@ -2,17 +2,26 @@ package com.mask.sharelibrary;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * FileUtils
@@ -53,12 +62,18 @@ public class FileUtils {
      * @return Uri
      */
     public static Uri getContentUri(Context context, File file) {
+        if (file == null) {
+            return null;
+        }
+
         Uri uri = null;
         String path = file.getAbsolutePath();
+        String mimeType = getMimeType(file.getName());
+
         ContentResolver contentResolver = context.getContentResolver();
-        Uri contentUri = MediaStore.Files.getContentUri("external");
+        Uri contentUri = getContentUri(mimeType);
         String[] projection = new String[]{MediaStore.MediaColumns._ID};
-        String selection = MediaStore.MediaColumns.DATA + "=? ";
+        String selection = MediaStore.MediaColumns.DATA + "=?";
         String[] selectionArgs = new String[]{path};
         Cursor cursor = contentResolver.query(contentUri, projection, selection, selectionArgs, null);
         if (cursor != null) {
@@ -71,15 +86,41 @@ public class FileUtils {
             cursor.close();
         }
         return uri;
-        //        if (mimeType.startsWith("image")) {
-//            contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-//        } else if (mimeType.startsWith("video")) {
-//            contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-//        } else if (mimeType.startsWith("audio")) {
-//            contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-//        } else {
-//            contentUri = MediaStore.Files.getContentUri("external");
-//        }
+    }
+
+    /**
+     * 获取 重复文件Uri
+     *
+     * @param context context
+     * @param file    file
+     * @return Uri
+     */
+    public static Uri getDuplicateFileUri(Context context, File file) {
+        if (file == null) {
+            return null;
+        }
+
+        Uri uri = null;
+        String name = file.getName();
+        long size = file.length();
+        String mimeType = getMimeType(name);
+
+        ContentResolver contentResolver = context.getContentResolver();
+        Uri contentUri = getContentUri(mimeType);
+        String[] projection = new String[]{MediaStore.MediaColumns._ID};
+        String selection = MediaStore.MediaColumns.DISPLAY_NAME + "=?" + " AND " + MediaStore.MediaColumns.SIZE + "=?";
+        String[] selectionArgs = new String[]{name, String.valueOf(size)};
+        Cursor cursor = contentResolver.query(contentUri, projection, selection, selectionArgs, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int idCol = cursor.getColumnIndex(MediaStore.MediaColumns._ID);
+                if (idCol >= 0) {
+                    uri = ContentUris.withAppendedId(contentUri, cursor.getLong(idCol));
+                }
+            }
+            cursor.close();
+        }
+        return uri;
     }
 
     /**
@@ -187,6 +228,159 @@ public class FileUtils {
 //        return null;
 
         return context.getContentResolver().getType(uri);
+    }
+
+    /**
+     * 获取 Uri(根据mimeType)
+     *
+     * @param mimeType mimeType
+     * @return Uri
+     */
+    public static Uri getContentUri(String mimeType) {
+        Uri contentUri;
+        if (mimeType.startsWith("image")) {
+            contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        } else if (mimeType.startsWith("video")) {
+            contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        } else if (mimeType.startsWith("audio")) {
+            contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        } else {
+            contentUri = MediaStore.Files.getContentUri("external");
+        }
+        return contentUri;
+    }
+
+    /**
+     * 获取 文件夹名称(根据mimeType)
+     *
+     * @param mimeType mimeType
+     * @return String dirName
+     */
+    public static String getDirName(String mimeType) {
+        String dirName;
+        if (mimeType.startsWith("image")) {
+            dirName = Environment.DIRECTORY_PICTURES;
+        } else if (mimeType.startsWith("video")) {
+            dirName = Environment.DIRECTORY_PICTURES;
+        } else if (mimeType.startsWith("audio")) {
+            dirName = Environment.DIRECTORY_MUSIC;
+        } else {
+            dirName = Environment.DIRECTORY_DOCUMENTS;
+        }
+        return dirName;
+    }
+
+    /**
+     * 复制文件到外部
+     * 详细查看官方文档
+     * 访问共享存储空间中的媒体文件：https://developer.android.com/training/data-storage/shared/media#add-item
+     *
+     * @param context context
+     * @param dirName 目录名(例如："/Pictures/WeChat"中的"WeChat")
+     * @param file    file
+     * @return Uri
+     */
+    public static Uri copyFileToExternal(Context context, String dirName, File file) {
+        if (file == null) {
+            return null;
+        }
+
+        // 获取是否有重复的文件，避免重复复制
+        Uri uri = getDuplicateFileUri(context, file);
+        if (uri != null) {
+            return uri;
+        }
+
+        String name = file.getName();
+        String mimeType = getMimeType(name);
+
+        ContentResolver contentResolver = context.getContentResolver();
+        Uri contentUri = getContentUri(mimeType);
+
+        // 插入参数
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, name);// 文件名
+        values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);// mimeType
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            String dirPath = getDirName(mimeType);
+            if (!TextUtils.isEmpty(dirName)) {
+                dirPath += File.separatorChar + dirName;
+            }
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, dirPath);// 相对路径
+            values.put(MediaStore.MediaColumns.IS_PENDING, 1);// 文件的处理状态(防止写入过程中被其他App查询到，写入完成后记得修改回来)
+        }
+
+        // 获取插入的Uri
+        uri = contentResolver.insert(contentUri, values);
+        if (uri == null) {
+            return null;
+        }
+
+        // 复制文件
+        boolean copySuccess = false;
+        try {
+            OutputStream outputStream = contentResolver.openOutputStream(uri);
+            if (outputStream == null) {
+                return null;
+            }
+            InputStream inputStream = new FileInputStream(file);
+            copySuccess = copy(inputStream, outputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 复制失败则删除
+        if (!copySuccess) {
+            contentResolver.delete(uri, null, null);
+            return null;
+        }
+
+        // 更新文件的处理状态
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            values.clear();
+            values.put(MediaStore.MediaColumns.IS_PENDING, 0);// 文件的处理状态(防止写入过程中被其他App查询到，写入完成后记得修改回来)
+
+            contentResolver.update(uri, values, null, null);
+        }
+
+        return uri;
+    }
+
+    /**
+     * 复制
+     * {@link android.os.FileUtils#copy(InputStream, OutputStream)}
+     *
+     * @param inputStream  inputStream
+     * @param outputStream outputStream
+     * @return boolean
+     */
+    public static boolean copy(InputStream inputStream, OutputStream outputStream) {
+        try {
+            byte[] buffer = new byte[8192];
+            int byteRead;
+            while ((byteRead = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, byteRead);
+            }
+            outputStream.flush();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
 }
