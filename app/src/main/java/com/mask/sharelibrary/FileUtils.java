@@ -1,13 +1,17 @@
 package com.mask.sharelibrary;
 
+import android.app.Activity;
+import android.app.RecoverableSecurityException;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.IntentSender;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
@@ -60,7 +64,7 @@ public class FileUtils {
      * @return Uri
      */
     public static Uri getContentUri(Context context, File file) {
-        if (file == null) {
+        if (file == null || !file.exists()) {
             return null;
         }
 
@@ -94,7 +98,7 @@ public class FileUtils {
      * @return Uri
      */
     public static Uri getDuplicateFileUri(Context context, File file) {
-        if (file == null) {
+        if (file == null || !file.exists()) {
             return null;
         }
 
@@ -279,7 +283,7 @@ public class FileUtils {
      * @return Uri
      */
     public static Uri copyFileToExternal(Context context, String dirName, File file) {
-        if (file == null) {
+        if (file == null || !file.exists()) {
             return null;
         }
 
@@ -328,7 +332,7 @@ public class FileUtils {
         }
         // 复制失败则删除
         if (!copySuccess) {
-            contentResolver.delete(uri, null, null);
+            delete(context, uri);
             return null;
         }
 
@@ -379,6 +383,55 @@ public class FileUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * 删除
+     * <p>
+     * 注意：
+     * 只适用于系统文件选择器返回的Uri，其他Uri会报错
+     *
+     * @param context context
+     * @param uri     uri
+     * @return boolean
+     */
+    public static boolean deleteSystem(Context context, Uri uri) {
+        boolean delete = false;
+
+        ContentResolver contentResolver = context.getContentResolver();
+
+        try {
+            delete = DocumentsContract.deleteDocument(contentResolver, uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return delete;
+    }
+
+    /**
+     * 删除
+     * <p>
+     * 注意：
+     * 只适用于应用自身创建的媒体文件；
+     * 文档等其他类型文件无法删除，其他App的文件也无法删除成功，只能删除媒体库里的Uri数据，实际文件并没有删除。
+     *
+     * @param context context
+     * @param uri     uri
+     * @return boolean
+     */
+    public static boolean delete(Context context, Uri uri) {
+        boolean delete = false;
+
+        ContentResolver contentResolver = context.getContentResolver();
+
+        try {
+            delete = contentResolver.delete(uri, null, null) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return delete;
     }
 
 }

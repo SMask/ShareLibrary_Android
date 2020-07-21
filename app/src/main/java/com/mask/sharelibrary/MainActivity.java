@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private View btn_open_document;
     private View btn_share_single;
     private View btn_share_multiple;
+    private View btn_delete;
 
     private File dirFile;
     private String dirName = "Mask";
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         btn_open_document = findViewById(R.id.btn_open_document);
         btn_share_single = findViewById(R.id.btn_share_single);
         btn_share_multiple = findViewById(R.id.btn_share_multiple);
+        btn_delete = findViewById(R.id.btn_delete);
     }
 
     private void setListener() {
@@ -74,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 shareMultiple();
+            }
+        });
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete();
             }
         });
     }
@@ -179,9 +187,9 @@ public class MainActivity extends AppCompatActivity {
 //        file = new File("/storage/emulated/0/1594880862572.pdf");// false
 
         // 应用内图片测试
-//        file = new File(dirFile, "Screenshot_2020-01-03-16-54-05-360_com.mask.chartlibrary.jpg");// false
+        file = new File(dirFile, "Screenshot_2020-01-03-16-54-05-360_com.mask.chartlibrary.jpg");// false
         // 应用内文档测试
-        file = new File(dirFile, "1594880862572.pdf");// false
+//        file = new File(dirFile, "1594880862572.pdf");// false
 
 //        MediaScannerConnection.scanFile(activity, new String[]{file.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
 //            @Override
@@ -269,6 +277,50 @@ public class MainActivity extends AppCompatActivity {
         }
 
         shareMultiple(uriList, "image/*");
+    }
+
+    /**
+     * 删除文件
+     */
+    private void delete() {
+        File file;
+
+        // 应用外图片测试
+//        file = new File("/storage/emulated/0/Pictures/Mask/20200720190708.png");
+        // 应用外视频测试
+//        file = new File("/storage/emulated/0/Pictures/Mask/123456789.mp4");
+        // 应用外文档测试
+//        file = new File("/storage/emulated/0/Documents/Mask/1594880862572.pdf");
+
+        // 应用内图片测试
+        file = new File(dirFile, "20200720190708.png");
+        // 应用内文档测试
+//        file = new File(dirFile, "1594880862572.pdf");
+
+        Uri uri;
+
+        final Uri fileUri = FileUtils.getFileUri(activity, file);
+        final Uri contentUri = FileUtils.getContentUri(activity, file);
+        final String mimeType = FileUtils.getMimeType(file.getName());
+
+        LogUtil.i("File Path: " + file.getAbsolutePath());
+        LogUtil.i("File Exists: " + file.exists());
+        LogUtil.i("File Extension: " + FileUtils.getExtension(file.getName()));
+        LogUtil.i("File MimeType: " + mimeType);
+        LogUtil.i("File FileUri: " + fileUri);
+        LogUtil.i("File FilePath: " + FileUtils.getPath(activity, fileUri));
+        LogUtil.i("File FileName: " + FileUtils.getName(activity, fileUri));
+        LogUtil.i("File FileMimeType: " + FileUtils.getMimeType(activity, fileUri));
+        LogUtil.i("File ContentUri: " + contentUri);
+        LogUtil.i("File ContentPath: " + FileUtils.getPath(activity, contentUri));
+        LogUtil.i("File ContentName: " + FileUtils.getName(activity, contentUri));
+        LogUtil.i("File ContentMimeType: " + FileUtils.getMimeType(activity, contentUri));
+
+        uri = contentUri == null ? fileUri : contentUri;
+
+        boolean delete = FileUtils.delete(activity, uri);
+        delete = file.delete() || delete;
+        LogUtil.i("delete: " + delete);
     }
 
     /**
