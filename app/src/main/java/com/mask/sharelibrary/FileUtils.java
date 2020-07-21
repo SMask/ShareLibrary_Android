@@ -420,6 +420,7 @@ public class FileUtils {
      * 注意：
      * 只适用于应用自身创建的媒体文件；
      * 文档等其他类型文件无法删除，其他App的文件也无法删除成功，只能删除媒体库里的Uri数据，实际文件并没有删除。
+     * 操作其他App的数据需要用户授予权限，catch RecoverableSecurityException 异常，然后请求权限，具体见官方文档。
      * <p>
      * 访问共享存储空间中的媒体文件：https://developer.android.com/training/data-storage/shared/media#remove-item
      *
