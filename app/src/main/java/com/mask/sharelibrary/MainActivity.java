@@ -163,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
             LogUtil.i("onActivityResult MimeType: " + mimeType);
 
             shareSingle(uri, mimeType);
+
+//            boolean delete = FileUtils.deleteSystem(activity, uri);
+//            LogUtil.i("delete: " + delete);
         }
     }
 

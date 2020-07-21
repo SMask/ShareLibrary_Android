@@ -126,7 +126,10 @@ public class FileUtils {
     }
 
     /**
-     * 获取 Path(只作为Debug使用，实际开发不建议使用，毕竟获取path没有什么意义，用Uri来操作更好)
+     * 获取 Path
+     * <p>
+     * 注意：
+     * 只作为Debug使用，实际开发不建议使用，毕竟获取path没有什么意义，用Uri来操作更好
      *
      * @param context context
      * @param uri     uri(特定的Uri才能查询到，比如系统媒体库的Uri)
@@ -274,7 +277,7 @@ public class FileUtils {
 
     /**
      * 复制文件到外部
-     * 详细查看官方文档
+     * <p>
      * 访问共享存储空间中的媒体文件：https://developer.android.com/training/data-storage/shared/media#add-item
      *
      * @param context context
@@ -390,6 +393,8 @@ public class FileUtils {
      * <p>
      * 注意：
      * 只适用于系统文件选择器返回的Uri，其他Uri会报错
+     * <p>
+     * 从共享存储空间访问文档和其他文件：https://developer.android.com/training/data-storage/shared/documents-files#delete
      *
      * @param context context
      * @param uri     uri
@@ -415,6 +420,8 @@ public class FileUtils {
      * 注意：
      * 只适用于应用自身创建的媒体文件；
      * 文档等其他类型文件无法删除，其他App的文件也无法删除成功，只能删除媒体库里的Uri数据，实际文件并没有删除。
+     * <p>
+     * 访问共享存储空间中的媒体文件：https://developer.android.com/training/data-storage/shared/media#remove-item
      *
      * @param context context
      * @param uri     uri
