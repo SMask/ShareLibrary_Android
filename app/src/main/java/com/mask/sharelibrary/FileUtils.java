@@ -371,15 +371,15 @@ public class FileUtils {
             e.printStackTrace();
         } finally {
             try {
-                if (inputStream != null) {
-                    inputStream.close();
+                if (outputStream != null) {
+                    outputStream.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
             try {
-                if (outputStream != null) {
-                    outputStream.close();
+                if (inputStream != null) {
+                    inputStream.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
