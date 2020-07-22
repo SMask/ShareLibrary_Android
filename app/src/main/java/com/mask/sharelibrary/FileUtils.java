@@ -323,12 +323,8 @@ public class FileUtils {
 
         // 复制文件
         boolean copySuccess = false;
-        try {
-            OutputStream outputStream = contentResolver.openOutputStream(uri);
-            if (outputStream == null) {
-                return null;
-            }
-            InputStream inputStream = new FileInputStream(file);
+        try (OutputStream outputStream = contentResolver.openOutputStream(uri);
+             InputStream inputStream = new FileInputStream(file)) {
             copySuccess = copy(inputStream, outputStream);
         } catch (Exception e) {
             e.printStackTrace();
@@ -367,23 +363,8 @@ public class FileUtils {
             }
             outputStream.flush();
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (outputStream != null) {
-                    outputStream.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         return false;
     }
