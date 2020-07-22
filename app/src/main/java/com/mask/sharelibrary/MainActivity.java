@@ -190,9 +190,9 @@ public class MainActivity extends AppCompatActivity {
 //        file = new File("/storage/emulated/0/1594880862572.pdf");// false
 
         // 应用内图片测试
-        file = new File(dirFile, "Screenshot_2020-01-03-16-54-05-360_com.mask.chartlibrary.jpg");// false
+//        file = new File(dirFile, "20200720190708.png");// false
         // 应用内文档测试
-//        file = new File(dirFile, "1594880862572.pdf");// false
+        file = new File(dirFile, "1594880862572.pdf");// false
 
 //        MediaScannerConnection.scanFile(activity, new String[]{file.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
 //            @Override
@@ -289,14 +289,14 @@ public class MainActivity extends AppCompatActivity {
         File file;
 
         // 应用外图片测试
-//        file = new File("/storage/emulated/0/Pictures/Mask/20200720190708.png");
+        file = new File("/storage/emulated/0/Pictures/Mask/20200720190708.png");
         // 应用外视频测试
 //        file = new File("/storage/emulated/0/Pictures/Mask/123456789.mp4");
         // 应用外文档测试
 //        file = new File("/storage/emulated/0/Documents/Mask/1594880862572.pdf");
 
         // 应用内图片测试
-        file = new File(dirFile, "20200720190708.png");
+//        file = new File(dirFile, "20200720190708.png");
         // 应用内文档测试
 //        file = new File(dirFile, "1594880862572.pdf");
 
