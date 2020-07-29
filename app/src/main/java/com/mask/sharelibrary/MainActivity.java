@@ -1,23 +1,22 @@
 package com.mask.sharelibrary;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -189,10 +188,19 @@ public class MainActivity extends AppCompatActivity {
 //        file = new File("/storage/emulated/0/Download/1594880862572.pdf");// false
 //        file = new File("/storage/emulated/0/1594880862572.pdf");// false
 
+        // 其他应用内图片测试
+//        file = new File("/storage/emulated/0/Android/data/cn.wps.moffice_eng/ProgramFiles/20200720190708.png");// false
+
+        // "/Android/data/"目录内图片测试
+//        file = new File("/storage/emulated/0/Android/data/ProgramFiles/20200720190708.png");// false
+
+        // "/Android/"目录内图片测试
+//        file = new File("/storage/emulated/0/Android/ProgramFiles/20200720190708.png");// true
+
         // 应用内图片测试
-//        file = new File(dirFile, "20200720190708.png");// false
+        file = new File(dirFile, "20200720190708.png");// false
         // 应用内文档测试
-        file = new File(dirFile, "1594880862572.pdf");// false
+//        file = new File(dirFile, "1594880862572.pdf");// false
 
 //        MediaScannerConnection.scanFile(activity, new String[]{file.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
 //            @Override
