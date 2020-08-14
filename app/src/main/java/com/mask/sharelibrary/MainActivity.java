@@ -2,6 +2,7 @@ package com.mask.sharelibrary;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     private void openDocument() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);// 支持多选
         intent.setType("*/*");
         startActivityForResult(Intent.createChooser(intent, "选择文件"), 10086);
     }
@@ -155,16 +157,30 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 10086 && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
-            String mimeType = FileUtils.getMimeType(activity, uri);
-            LogUtil.i("onActivityResult Uri: " + uri);
-            LogUtil.i("onActivityResult Path: " + FileUtils.getPath(activity, uri));
-            LogUtil.i("onActivityResult Name: " + FileUtils.getName(activity, uri));
-            LogUtil.i("onActivityResult MimeType: " + mimeType);
+            if (uri != null) {// 单选
+                String mimeType = FileUtils.getMimeType(activity, uri);
+                LogUtil.i("onActivityResult Single Uri: " + uri);
+                LogUtil.i("onActivityResult Single Path: " + FileUtils.getPath(activity, uri));
+                LogUtil.i("onActivityResult Single Name: " + FileUtils.getName(activity, uri));
+                LogUtil.i("onActivityResult Single MimeType: " + mimeType);
 
-            shareSingle(uri, mimeType);
+                shareSingle(uri, mimeType);
 
 //            boolean delete = FileUtils.deleteSystem(activity, uri);
 //            LogUtil.i("delete: " + delete);
+            }
+
+            ClipData clipData = data.getClipData();
+            if (clipData != null) {// 多选
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    Uri uriItem = clipData.getItemAt(i).getUri();
+
+                    LogUtil.i("onActivityResult Multiple Uri: " + uriItem);
+                    LogUtil.i("onActivityResult Multiple Path: " + FileUtils.getPath(activity, uriItem));
+                    LogUtil.i("onActivityResult Multiple Name: " + FileUtils.getName(activity, uriItem));
+                    LogUtil.i("onActivityResult Multiple MimeType: " + FileUtils.getMimeType(activity, uriItem));
+                }
+            }
         }
     }
 
